@@ -16,12 +16,18 @@ const char *determine_package_manager() {
 
     char *pkgmgr = NULL;
 
-    /* FreeBSD */
 #if defined(__FreeBSD__)
+    /* FreeBSD */
     pkgmgr = "pkg";
 
-    /* linux distros */
+#elif defined(__OpenBSD__)
+    /* OpenBSD */
+    pkgmgr = "pkg_add";
+#elif defined(__APPLE__)
+    /* macOS */
+    pkgmgr = "softwareupdate";
 #elif defined(__linux__)
+    /* linux distros */
 	if (command_exists("pacman")) {
         pkgmgr = "pacman";
     } else if (command_exists("apt-get")) {
@@ -96,6 +102,10 @@ const char *get_unelevated_update_command(const char *pkgmgr) {
     }
 #elif defined(__FreeBSD__)
     unelevated_update_command = "freebsd-update fetch install && pkg update && pkg upgrade -y";
+#elif defined(__OpenBSD__)
+    unelevated_update_command = "syspatch && pkg_add -u";
+#elif defined(__APPLE__)
+    unelevated_update_command = "softwareupdate --install --all";
 #endif
     return unelevated_update_command;
 }
