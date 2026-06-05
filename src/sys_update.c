@@ -8,16 +8,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include "common_utils/have.c" // command_exists()
-#include "common_utils/elevate.c" // elevate()
-
-/* determine which privilege elevator program, sudo or doas, is available. checks for sudo first, then doas */
-const char* determine_elevator() {
-	const char *elevator = NULL;
-	if (command_exists("sudo")) { elevator = "sudo"; }
-	if (command_exists("doas")) { elevator = "doas"; }
-    return elevator;
-}
+#include "../common_utils/have.c" // command_exists()
+#include "../common_utils/elevate.c" // elevate()
 
 /* determine the package manager(s) available. */
 const char *determine_package_manager() {
@@ -112,7 +104,7 @@ const char *get_unelevated_update_command(const char *pkgmgr) {
 // function to insert the proper elevator (doas or sudo) into the unelevated (unelevated) update command
 const char *get_elevated_update_command(const char *pkgmgr) {
     const char *unelevated_update_command = get_unelevated_update_command(pkgmgr);
-    return elevate(unelevated_update_command);
+    return elevate_command(unelevated_update_command);
 }
 
 // function to build a update command accordingly with the elevator for the given pkgmgr
