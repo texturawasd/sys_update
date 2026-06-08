@@ -5,9 +5,6 @@
  * version 0.1: supports linux and FreeBSD
 */
 
-#include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
 #include "../common_utils/have.c" // command_exists()
 #include "../common_utils/elevate.c" // elevate()
 
@@ -115,27 +112,3 @@ const char *build_final_update_command(const char *pkgmgr)
 {
     return elevate_command(get_unelevated_update_command(pkgmgr));
 }
-
-int main(void) {
-
-    const char *system_package_manager = determine_package_manager();
-
-    puts("Updating the system...");
-    printf("detected system package manager: %s\n", system_package_manager);
-    const char *final_update_command = build_final_update_command(system_package_manager);
-    system(final_update_command);
-
-    /* also update universal pkgmgrs: snap, flatpak */
-
-    if (command_exists("snap")) {
-        const char *update_command_for_snap = build_final_update_command("snap");
-        system(update_command_for_snap);
-    }
-    if (command_exists("flatpak")) {
-        const char *update_command_for_flatpak = build_final_update_command("flatpak");
-        system(update_command_for_flatpak);
-    }
-
-    return 0;
-}
-
