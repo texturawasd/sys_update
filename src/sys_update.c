@@ -3,6 +3,10 @@
  * a tool to update the system in any system
  * texturawasd, june 2026
  * version 0.1: supports linux and FreeBSD
+ * technically others too, but only tested on:
+ * Arch Linux
+ * Ubuntu
+ * FreeBSD
 */
 
 #include "../common_utils/have.c" // command_exists()
