@@ -9,8 +9,8 @@
  * FreeBSD
 */
 
-#include "../common_utils/have.c" // command_exists()
-#include "../common_utils/elevate.c" // elevate()
+#include "../common_utils/have.h" // command_exists()
+#include "../common_utils/elevate.h" // elevate()
 
 /* determine the package manager(s) available. */
 const char *determine_package_manager() {
