@@ -1,3 +1,10 @@
+/*
+ * PMA - Package Manager Abstraction
+ * the point of this tool is to abstract package managers, reducing the usage
+ * down to three basic commands: update, install, remove.
+ * meant to be reusable, or compiled as the standalone CLI tool (compile main.c for that.)
+ */
+
 #ifndef PMA_H
 #define PMA_H
 
@@ -11,7 +18,24 @@ const char *get_aur_helper();
 
 #endif
 
-/* general utility */
+/*
+ * main functions
+ */
+
+/* just update the system */
+int sys_update(void);
+
+#if 0 // unimplemented
+/* install a package */
+int package_install(const char *package_name);
+
+/* remove a package */
+int package_remove(const char *package_name);
+#endif
+
+/*
+ * general utility
+ */
 
 /* determine the system package manager by checking PATH */
 const char *determine_package_manager();
