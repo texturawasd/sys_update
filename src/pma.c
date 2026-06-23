@@ -1,3 +1,5 @@
+#include <unistd.h>
+
 #include "../common_utils/have.h" // command_exists()
 #include "../common_utils/elevate.h" // elevate()
 
@@ -107,6 +109,9 @@ const char *get_unelevated_update_command(const char *pkgmgr) {
 
 // function to build a update command accordingly with the elevator for the given pkgmgr
 const char *build_final_update_command(const char *pkgmgr) {
+    if (getuid() == 0) /* running as root, no need to elevate. */ {
+        return get_unelevated_update_command(pkgmgr);
+    } /* not running as root, elevate the command*/
     return elevate_command(get_unelevated_update_command(pkgmgr));
 }
 

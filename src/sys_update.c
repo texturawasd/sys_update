@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "../common_utils/have.h" // command_exists()
 #include "../include/pma.h"
 
